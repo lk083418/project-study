@@ -1,0 +1,39 @@
+server:
+  port: 9403 # 服务端口
+
+spring:
+  application:
+    name: sdwan-gateway
+eureka:
+  client:
+    registerWithEureka: true # 服务注册开关
+    fetchRegistry: true # 服务发现开关
+    serviceUrl: # 客户端(服务提供者)注册到哪一个Eureka Server服务注册中心，多个用逗号分隔
+      # 单机版 Eureka 服务注册中心
+      defaultZone: http://localhost:8100/eureka
+  # 集群版 Eureka 服务注册中心
+  #      defaultZone: http://eureka6001.com:6001/eureka,http://eureka6002.com:6002/eureka
+  instance:
+    instanceId: ${spring.application.name}:${server.port} # 指定实例ID,就不会显示主机名了
+    preferIpAddress: true #访问路径可以显示IP地址
+    lease-renewal-interval-in-seconds: 2
+    lease-expiration-duration-in-seconds: 4
+
+
+zuul:
+#  ignored-services: zuul-helloworld
+  routes:
+    zuul-helloworld:
+      path: /helloworld/**
+    zuul-helloworld2:
+      path: /helloworld2/**
+  ignored-services: zuul-helloworld
+
+  host:
+      socket-timeout-millis: 80000   #socket超时
+      connect-timeout-millis: 10000 #HTTP连接超时要比Hystrix的大
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'routes'
