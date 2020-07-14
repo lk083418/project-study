@@ -10,6 +10,7 @@
         <module>zuul</module>
         <module>helloWorld</module>
         <module>helloWorld2</module>
+        <module>oauth2-res</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -37,7 +38,7 @@
             <version>${lombock.version}</version>
         </dependency>
     </dependencies>
-
+    <!-- 可供选择 -->
     <dependencyManagement>
         <dependencies>
             <dependency>

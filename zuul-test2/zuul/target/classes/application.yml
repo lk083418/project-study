@@ -21,17 +21,20 @@ eureka:
 
 
 zuul:
-#  ignored-services: zuul-helloworld
+  ignored-services: zuul-helloworld
   routes:
     zuul-helloworld:
-      path: /helloworld/**
+      path: /rest/**
     zuul-helloworld2:
       path: /helloworld2/**
-  ignored-services: zuul-helloworld
-
+#  ignored-services: zuul-helloworld
+  #配置过滤敏感的请求头信息，设置为空就不会过滤
+#  sensitive-headers:
   host:
       socket-timeout-millis: 80000   #socket超时
       connect-timeout-millis: 10000 #HTTP连接超时要比Hystrix的大
+
+
 management:
   endpoints:
     web:
